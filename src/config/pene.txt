@@ -1,0 +1,6 @@
+ACTUALIZAR ARCHIVOS
+git add .
+git commit -m "prueba"
+git push
+
+git pull
