@@ -3,4 +3,4 @@ git add .
 git commit -m "prueba"
 git push
 
-git pull
+git pull //si da error eliminar package-lock.json y volver a intentar
