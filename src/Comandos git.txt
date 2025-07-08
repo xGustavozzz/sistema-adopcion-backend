@@ -4,3 +4,35 @@ git commit -m "prueba"
 git push
 
 git pull //si da error eliminar package-lock.json y volver a intentar
+
+PARA PRUEBA DE CRUD DE MASCOTA
+
+npm start
+
+Obtener todas las mascotas
+GET http://localhost:3000/api/mascotas
+Obtener la mascota con ID = 2
+GET http://localhost:3000/api/mascotas/2
+Crear una nueva mascota
+POST http://localhost:3000/api/mascotas
+json
+{
+  "id_mascota": "5",
+  "nombre": "Luna",
+  "especie": "Perro",
+  "raza": "Labrador",
+  "edad": 3,
+  "sexo": "Hembra",
+  "descripcion": "Muy juguetona y amigable",
+  "estado_adopcion": "disponible",
+  "lugar_actual": "Refugio Central"
+}
+Actualizar la mascota con ID = 
+PUT http://localhost:3000/api/mascotas/5
+json
+{
+  "estado_adopcion": "adoptada",
+  "lugar_actual": "Hogar de María"
+}
+Eliminar la mascota con ID = 5
+DELETE http://localhost:3000/api/mascotas/5
