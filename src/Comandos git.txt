@@ -1,9 +1,18 @@
-ACTUALIZAR ARCHIVOS
+# Ver cambios y estado actual
+git status
+git diff
+
+# Guardar cambios
 git add .
-git commit -m "prueba"
+git commit -m "tu mensaje"
 git push
 
-git pull //si da error eliminar package-lock.json y volver a intentar
+# Descargar cambios del equipo
+git pull --rebase
+
+# Ver historial
+git log --oneline
+//si da error eliminar package-lock.json y volver a intentar
 
 PARA PRUEBA DE CRUD DE MASCOTA
 
