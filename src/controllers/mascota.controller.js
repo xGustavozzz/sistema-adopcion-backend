@@ -23,6 +23,9 @@ exports.getById = async (req, res) => {
 exports.create = async (req, res) => {
     try {
         const newMascota = await service.createMascota(req.body);
+        if (!newMascota) {
+            return res.status(404).json({error: 'Mascota incorrect'});
+        }
         res.status(201).json(newMascota);
     } catch (err) {
         res.status(400).json({ error: err.message});

@@ -13,25 +13,24 @@ exports.findById = async (id) => {
 };
 
 //inserta un nuevo mascota
-exports.insert = async ({
-    id_mascota,
-    nombre,
-    especie,
-    raza,
-    edad,
-    sexo,
-    descripcion,
-    estado_adopcion,
-    lugar_actual
-
-}) => {
+exports.insert = async (mascota) => {
+    const {
+        nombre,
+        especie,
+        raza,
+        edad,
+        sexo,
+        descripcion,
+        estado_adopcion,
+        lugar_actual
+    } = mascota;
     const result = await db.query(
         `INSERT INTO mascota 
-        (id_mascota, nombre, especie, raza, edad, sexo, descripcion, estado_adopcion, lugar_actual) 
+        (nombre, especie, raza, edad, sexo, descripcion, estado_adopcion, lugar_actual)
         VALUES 
-        ($1, $2, $3, $4, $5, $6, $7, $8, $9) 
+        ($1, $2, $3, $4, $5, $6, $7, $8)
         RETURNING *`,
-        [id_mascota, nombre, especie, raza, edad, sexo, descripcion, estado_adopcion, lugar_actual]
+        [nombre, especie, raza, edad, sexo, descripcion, estado_adopcion, lugar_actual]
     );
     return result.rows[0];
 };
