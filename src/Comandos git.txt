@@ -29,7 +29,7 @@ json
   "id_mascota": "5",
   "nombre": "Luna",
   "especie": "Perro",
-  "raza": "Labrador",
+  "tamaño": "Labrador",
   "edad": 3,
   "sexo": "Hembra",
   "descripcion": "Muy juguetona y amigable",
