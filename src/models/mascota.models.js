@@ -14,16 +14,7 @@ exports.findById = async (id) => {
 
 //inserta un nuevo mascota
 exports.insert = async (mascota) => {
-    const {
-        nombre,
-        especie,
-        raza,
-        edad,
-        sexo,
-        descripcion,
-        estado_adopcion,
-        lugar_actual
-    } = mascota;
+    const {nombre, especie, raza, edad, sexo, descripcion, estado_adopcion, lugar_actual} = mascota;
     const result = await db.query(
         `INSERT INTO mascota 
         (nombre, especie, raza, edad, sexo, descripcion, estado_adopcion, lugar_actual)
