@@ -1,3 +1,8 @@
+nurva libreria
+npm install jsonwebtoken bcryptjs
+
+
+
 # Ver cambios y estado actual
 git status
 git diff
