@@ -23,6 +23,9 @@ PARA PRUEBA DE CRUD DE MASCOTA
 
 npm start
 
+RUN AS DEVELOPER
+npx nodemon index.js
+
 Obtener todas las mascotas
 GET http://localhost:3000/api/mascotas
 Obtener la mascota con ID = 2
