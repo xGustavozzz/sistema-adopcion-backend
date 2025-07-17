@@ -10,8 +10,9 @@ const opcionRespuestaRoutes = require('./routes/opcionrespuesta.route');
 const tipoEmocionalRoutes = require('./routes/tipoemocional.route');
 const resultadoUsuarioRoutes = require('./routes/resultadousuario.route');
 
-
 const authRoutes = require('./routes/auth.route');
+const authenticate  = require('./middleware/auth');
+const authorizeRole = require('./middleware/authorize');
 
 const app = express();
 app.use(cors());
@@ -26,5 +27,10 @@ app.use('/api/tiposemocionales', tipoEmocionalRoutes);
 app.use('/api/resultados', resultadoUsuarioRoutes);
 
 app.use('/api/auth', authRoutes);
+
+// Ejemplo de ruta solo admin
+app.get('/api/admin/stats', authenticate, authorizeRole('admin'), (req, res) => {
+  res.json({ message: 'Solo admins pueden ver esto' });
+});
 
 module.exports = app;
