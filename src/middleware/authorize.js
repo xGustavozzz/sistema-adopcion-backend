@@ -1,11 +1,8 @@
-function authorizeRole(requiredRole) {
+module.exports = function authorize(...allowedRoles) {
   return (req, res, next) => {
-    if (!req.user) return res.status(401).json({ message: 'No autenticado' });
-    if (req.user.role !== requiredRole) {
-      return res.status(403).json({ message: 'Acceso denegado: rol insuficiente' });
+    if (!req.user || !allowedRoles.includes(req.user.rol)) {
+      return res.status(403).json({ message: 'Access denied' });
     }
     next();
   };
-}
-
-module.exports = authorizeRole;
+};

@@ -1,55 +1,37 @@
 const db = require('../config/db');
 
-exports.create = async ({ nombre, email, telefono, direccion, password_hash }) => {
+exports.findAll = async () => {
   const result = await db.query(
-    `INSERT INTO usuario (nombre, email, telefono, direccion, password_hash)
-     VALUES ($1, $2, $3, $4, $5)
-     RETURNING id_usuario, nombre, email, telefono, direccion, role, created_at`,
-    [nombre, email, telefono, direccion, password_hash]
+    'SELECT id_usuario, nombre, email, rol, created_at, updated_at FROM usuario'
   );
-  return result.rows[0];
-};
-
-exports.findByEmail = async (email) => {
-  const result = await db.query(
-    'SELECT * FROM usuario WHERE email = $1',
-    [email]
-  );
-  return result.rows[0];
+  return result.rows;
 };
 
 exports.findById = async (id) => {
   const result = await db.query(
-    'SELECT id_usuario, nombre, email, telefono, direccion, role, created_at, updated_at FROM usuario WHERE id_usuario = $1',
+    'SELECT id_usuario, nombre, email, rol, created_at, updated_at FROM usuario WHERE id_usuario = $1',
     [id]
   );
   return result.rows[0];
 };
 
-exports.findAll = async () => {
+exports.insert = async ({ nombre, email, password_hash, rol }) => {
   const result = await db.query(
-    'SELECT id_usuario, nombre, email, telefono, direccion, role, created_at, updated_at FROM usuario'
+    `INSERT INTO usuario (nombre, email, password_hash, rol)
+     VALUES ($1, $2, $3, $4)
+     RETURNING id_usuario, nombre, email, rol, created_at`,
+    [nombre, email, password_hash, rol]
   );
-  return result.rows;
+  return result.rows[0];
 };
 
 exports.update = async (id, fields) => {
   const keys = Object.keys(fields);
-  if (keys.length === 0) return await this.findById(id);
-  // Si actualizan contraseña, hashearla
-  let password_hash;
-  if (fields.password) {
-    const bcrypt = require('bcrypt');
-    const saltRounds = parseInt(process.env.BCRYPT_SALT_ROUNDS, 10);
-    password_hash = await bcrypt.hash(fields.password, saltRounds);
-    fields.password_hash = password_hash;
-    delete fields.password;
-  }
-  const setClause = keys.map((key, i) => `${key === 'password' ? 'password_hash' : key} = $${i+1}`).join(', ');
-  const values = keys.map(k => (k === 'password' ? fields.password_hash : fields[k]));
+  const setClause = keys.map((k, i) => `${k} = $${i+1}`).join(', ');
+  const values = keys.map(k => fields[k]);
   values.push(id);
   const result = await db.query(
-    `UPDATE usuario SET ${setClause} WHERE id_usuario = $${values.length} RETURNING id_usuario, nombre, email, telefono, direccion, role, created_at, updated_at`,
+    `UPDATE usuario SET ${setClause} WHERE id_usuario = $${values.length} RETURNING id_usuario, nombre, email, rol, created_at, updated_at`,
     values
   );
   return result.rows[0];
