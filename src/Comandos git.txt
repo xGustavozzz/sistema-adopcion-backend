@@ -1,7 +1,10 @@
 nurva libreria
 npm install jsonwebtoken bcryptjs
+npm install bcrypt
 
-
+asegurense de tener en el .env
+JWT_SECRET = ultramega_hardcore_hiper_transversal_dinamica_clave_secreta
+BCRYPT_SALT_ROUNDS=10
 
 # Ver cambios y estado actual
 git status
