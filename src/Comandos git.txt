@@ -6,6 +6,7 @@ asegurense de tener en el .env
 JWT_SECRET = ultramega_hardcore_hiper_transversal_dinamica_clave_secreta
 BCRYPT_SALT_ROUNDS=10
 
+
 ---------------------------------
 RUN AS DEVELOPER
 npx nodemon index.js
@@ -26,6 +27,7 @@ JWT_SECRET=pokemon2_eljuego
 --------------------------------
 GIT COMANDOS
 
+
 # Ver cambios y estado actual
 git status
 git diff
@@ -45,6 +47,9 @@ git log --oneline
 PARA PRUEBA DE CRUD DE MASCOTA
 
 npm start
+
+RUN AS DEVELOPER
+npx nodemon index.js
 
 Obtener todas las mascotas
 GET http://localhost:3000/api/mascotas
