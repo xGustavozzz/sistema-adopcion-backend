@@ -1,4 +1,6 @@
+---------------------------------
 nurva libreria
+---------------------------------
 npm install jsonwebtoken bcryptjs
 npm install bcrypt
 
@@ -13,7 +15,7 @@ npx nodemon index.js
 o
 
 node index.js
---------------------------------
+---------------------------------
 para corre con la bd online, 1 revisar db.js y poner esto en el .env
 
 PG_HOST=dpg-d1r5plndiees73fk9fjg-a.oregon-postgres.render.com
@@ -42,6 +44,7 @@ git pull --rebase
 git log --oneline
 //si da error eliminar package-lock.json y volver a intentar
 
+---------------------------------
 PARA PRUEBA DE CRUD DE MASCOTA
 
 npm start
@@ -73,3 +76,5 @@ json
 }
 Eliminar la mascota con ID = 5
 DELETE http://localhost:3000/api/mascotas/5
+
+---------------------------------
