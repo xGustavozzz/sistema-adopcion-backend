@@ -6,6 +6,26 @@ asegurense de tener en el .env
 JWT_SECRET = ultramega_hardcore_hiper_transversal_dinamica_clave_secreta
 BCRYPT_SALT_ROUNDS=10
 
+---------------------------------
+RUN AS DEVELOPER
+npx nodemon index.js
+
+o
+
+node index.js
+--------------------------------
+para corre con la bd online, 1 revisar db.js y poner esto en el .env
+
+PG_HOST=dpg-d1r5plndiees73fk9fjg-a.oregon-postgres.render.com
+PG_PORT=5432
+PG_USER=user
+PG_PASSWORD=P6JnuoNG1u9Le7NE2c28v8EKqrSuZCLE
+PG_DATABASE=adopcion_1com
+PG_SSL=true
+JWT_SECRET=pokemon2_eljuego
+--------------------------------
+GIT COMANDOS
+
 # Ver cambios y estado actual
 git status
 git diff
@@ -25,9 +45,6 @@ git log --oneline
 PARA PRUEBA DE CRUD DE MASCOTA
 
 npm start
-
-RUN AS DEVELOPER
-npx nodemon index.js
 
 Obtener todas las mascotas
 GET http://localhost:3000/api/mascotas
