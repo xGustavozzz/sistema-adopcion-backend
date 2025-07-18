@@ -12,12 +12,15 @@ class UserService {
     return user;
   }
 
-  static async create({ nombre, email, password, rol = 'user' }) {
-    const existing = await UserModel.findByEmail(email);
-    if (existing) throw { status: 409, message: 'Email ya registrado' };
-    const salt = parseInt(process.env.BCRYPT_SALT_ROUNDS, 10);
-    const password_hash = await bcrypt.hash(password, salt);
-    return await UserModel.insert({ nombre, email, password_hash, rol });
+  static async create({ nombre, email, telefono, direccion, password, role = 'user' }) {
+    const exists = await UserModel.findByEmail(email);
+    if (exists) throw { status: 409, message: 'Email ya registrado' };
+
+    const saltRounds   = parseInt(process.env.BCRYPT_SALT_ROUNDS, 10);
+    const password_hash = await bcrypt.hash(password, saltRounds);
+
+    // Aquí sí pasamos role, porque es admin quien llama a este método
+    return UserModel.insert({ nombre, email, telefono, direccion, password_hash, role });
   }
 
   static async update(id, data) {

@@ -2,25 +2,33 @@ const db = require('../config/db');
 
 exports.findAll = async () => {
   const result = await db.query(
-    'SELECT id_usuario, nombre, email, rol, created_at, updated_at FROM usuario'
+    'SELECT * FROM usuario'
   );
   return result.rows;
 };
 
 exports.findById = async (id) => {
   const result = await db.query(
-    'SELECT id_usuario, nombre, email, rol, created_at, updated_at FROM usuario WHERE id_usuario = $1',
+    'SELECT * FROM usuario WHERE id_usuario = $1',
     [id]
   );
   return result.rows[0];
 };
 
-exports.insert = async ({ nombre, email, password_hash, rol }) => {
+exports.findByEmail = async (email) => {
   const result = await db.query(
-    `INSERT INTO usuario (nombre, email, password_hash, rol)
-     VALUES ($1, $2, $3, $4)
-     RETURNING id_usuario, nombre, email, rol, created_at`,
-    [nombre, email, password_hash, rol]
+    'SELECT * FROM usuario WHERE email = $1',
+    [email]
+  );
+  return result.rows[0];
+};
+
+exports.insert = async ({ nombre, email, telefono, direccion, password_hash, role }) => {
+  const result = await db.query(
+    `INSERT INTO usuario (nombre, email,telefono, direccion, password_hash, role)
+     VALUES ($1, $2, $3, $4, $5, $6)
+     RETURNING id_usuario, nombre, email, telefono, direccion, role, created_at`,
+    [nombre, email, telefono, direccion, password_hash, role]
   );
   return result.rows[0];
 };
@@ -31,7 +39,7 @@ exports.update = async (id, fields) => {
   const values = keys.map(k => fields[k]);
   values.push(id);
   const result = await db.query(
-    `UPDATE usuario SET ${setClause} WHERE id_usuario = $${values.length} RETURNING id_usuario, nombre, email, rol, created_at, updated_at`,
+    `UPDATE usuario SET ${setClause} WHERE id_usuario = $${values.length} RETURNING id_usuario, nombre, email, telefono, direccion, role, created_at, updated_at`,
     values
   );
   return result.rows[0];

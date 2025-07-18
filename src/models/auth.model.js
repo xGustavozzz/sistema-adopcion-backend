@@ -8,12 +8,12 @@ exports.findByEmail = async (email) => {
   return result.rows[0];
 };
 
-exports.insert = async ({ nombre, email, password_hash, rol }) => {
+exports.insert = async ({ nombre, email, telefono, direccion, password_hash }) => {
   const result = await db.query(
-    `INSERT INTO usuario (nombre, email, password_hash, rol)
-     VALUES ($1, $2, $3, $4)
-     RETURNING id_usuario, nombre, email, rol, created_at`,
-    [nombre, email, password_hash, rol]
+    `INSERT INTO usuario (nombre, email, telefono, direccion, password_hash)
+     VALUES ($1, $2, $3, $4, $5)
+     RETURNING id_usuario, nombre, email, telefono, direccion, created_at`,
+    [nombre, email, telefono, direccion, password_hash]
   );
   return result.rows[0];
 };
