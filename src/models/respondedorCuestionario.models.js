@@ -20,9 +20,11 @@ exports.insertarResultado = async (id_usuario, id_emocional, compatibilidad) => 
     return result.rows[0];
 };
 
+/*
 exports.eliminarResultadoPorUsuario = async (id_usuario) => {
     await db.query(
         `DELETE FROM resultadousuario WHERE id_usuario = $1`,
         [id_usuario]
     );
 };
+*/

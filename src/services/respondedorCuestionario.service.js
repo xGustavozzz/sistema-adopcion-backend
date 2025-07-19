@@ -24,7 +24,7 @@ exports.procesarRespuestas = async (respuestas, id_usuario) => {
     const compatibilidad = calcularCompatibilidad(respuestas, contador);
 
 
-    await model.eliminarResultadoPorUsuario(id_usuario); //eliminar antes de insertar
+    //await model.eliminarResultadoPorUsuario(id_usuario); //eliminar antes de insertar
     const resultadoFinal = await model.insertarResultado(
         id_usuario,
         id_emocional_dominante,
@@ -44,10 +44,11 @@ function calcularCompatibilidad(respuestas, contador) {
     if (porcentaje >= 50) return 2;
     return 1;
 }
-
+/*
 exports.eliminarResultadoPorUsuario = async (id_usuario) => {
     await db.query(
         `DELETE FROM resultadousuario WHERE id_usuario = $1`,
         [id_usuario]
     );
 };
+*/
