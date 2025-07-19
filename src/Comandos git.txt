@@ -11,11 +11,12 @@ BCRYPT_SALT_ROUNDS=10
 
 ---------------------------------
 RUN AS DEVELOPER
+npm run dev
+
+/*
 npx nodemon index.js
-
-o
-
 node index.js
+*/
 ---------------------------------
 para corre con la bd online, 1 revisar db.js y poner esto en el .env
 

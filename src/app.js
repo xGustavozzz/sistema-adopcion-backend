@@ -13,11 +13,13 @@ const userRoutes  = require('./routes/user.route');
 const authRoutes = require('./routes/auth.route');
 const authenticate  = require('./middleware/auth');
 
+const respondedorCuestionarioRoutes = require('./routes/respondedorCuestionario.route');
+
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-
+app.use('/api/cuestionario', respondedorCuestionarioRoutes);
 app.use('/api/cuestionarios', cuestionarioRoutes);
 app.use('/api/preguntas', preguntaRoutes);
 app.use('/api/opciones', opcionRespuestaRoutes);
