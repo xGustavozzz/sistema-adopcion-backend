@@ -16,13 +16,12 @@ exports.findAll = async () => {
       m.compatibilidad,
       m.requerimientos,
       m.perfil_emocional,
-      -- Trae la imagen de orden=1 de la tabla hija:
       replace(encode(mi.imagen, 'base64'), E'\\n','') AS imagen
     FROM mascota m
     LEFT JOIN mascota_imagen mi
-      ON mi.id_mascota = m.id_mascota
-      AND mi.orden = 1
-    ORDER BY m.id_mascota;`);
+      ON mi.id_mascota = m.id_mascota AND mi.orden = 1
+    ORDER BY m.id_mascota;`
+  );
     return result.rows;
 };
 
