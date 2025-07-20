@@ -12,9 +12,11 @@ const mascotaRoutes = require('./routes/mascota.route');
 const userRoutes  = require('./routes/user.route');
 const authRoutes = require('./routes/auth.route');
 const authenticate  = require('./middleware/auth');
+const mascotaImagenRoutes = require('./routes/mascotaImagen.route');
 
 const respondedorCuestionarioRoutes = require('./routes/respondedorCuestionario.route');
 
+const listEndpoints = require('express-list-endpoints');
 
 const app = express();
 app.use(cors());
@@ -31,6 +33,7 @@ app.use('/api/mascotas', mascotaRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 
-app.use('/api/mascotas', require('./routes/mascotaImagen.route'));
+app.use('/api/mascotas',mascotaImagenRoutes);
+
 
 module.exports = app;

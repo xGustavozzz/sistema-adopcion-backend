@@ -2,7 +2,26 @@ const db = require('../config/db');
 
 //devuelve resultado de una consulta a la tabla mascota
 exports.findAll = async () => {
-    const result = await db.query('SELECT * FROM mascota');
+    const result = await db.query(    
+    `SELECT DISTINCT ON (m.id_mascota)
+      m.id_mascota,
+      m.nombre,
+      m.especie,
+      m.tamano,
+      m.edad,
+      m.sexo,
+      m.descripcion,
+      m.estado_adopcion,
+      m.lugar_actual,
+      m.compatibilidad,
+      m.requerimientos,
+      m.perfil_emocional,
+      replace(encode(mi.imagen, 'base64'), E'\\n','') AS imagen
+    FROM mascota m
+    LEFT JOIN mascota_imagen mi
+      ON mi.id_mascota = m.id_mascota AND mi.orden = 1
+    ORDER BY m.id_mascota;`
+  );
     return result.rows;
 };
 
