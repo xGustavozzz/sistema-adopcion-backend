@@ -13,7 +13,6 @@ exports.findAll = async () => {
       m.descripcion,
       m.estado_adopcion,
       m.lugar_actual,
-      m.compatibilidad,
       m.requerimientos,
       m.perfil_emocional,
       replace(encode(mi.imagen, 'base64'), E'\\n','') AS imagen
@@ -33,14 +32,14 @@ exports.findById = async (id) => {
 
 //inserta un nuevo mascota
 exports.insert = async (mascota) => {
-    const {nombre, especie, tamano, edad, sexo, descripcion, estado_adopcion, lugar_actual, compatibilidad, requerimientos, perfil_emocional} = mascota;
+    const {nombre, especie, tamano, edad, sexo, descripcion, estado_adopcion, lugar_actual, requerimientos, perfil_emocional} = mascota;
     const result = await db.query(
         `INSERT INTO mascota 
-        (nombre, especie, tamano, edad, sexo, descripcion, estado_adopcion, lugar_actual, compatibilidad, requerimientos, perfil_emocional)
+        (nombre, especie, tamano, edad, sexo, descripcion, estado_adopcion, lugar_actual, requerimientos, perfil_emocional)
         VALUES 
-        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
         RETURNING *`,
-        [nombre, especie, tamano, edad, sexo, descripcion, estado_adopcion, lugar_actual, compatibilidad, requerimientos, perfil_emocional]
+        [nombre, especie, tamano, edad, sexo, descripcion, estado_adopcion, lugar_actual, requerimientos, perfil_emocional]
     );
     return result.rows[0];
 };
