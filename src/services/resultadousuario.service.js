@@ -1,7 +1,7 @@
 const model = require('../models/resultadousuario.models');
 
-exports.obtenerResultadoDeUsuario = async (id_usuario) => {
-  const resultado = await ResultadoModel.findByUsuario(id_usuario);
+exports.obtenerMiTipoEmocional  = async (id_usuario) => {
+  const resultado = await model.findByUsuario(id_usuario);
   return resultado;
 };
 

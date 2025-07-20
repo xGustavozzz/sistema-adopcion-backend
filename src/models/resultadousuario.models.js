@@ -32,10 +32,12 @@ exports.insert = async ({ id_usuario, id_emocional, fecha_resultado }) => {
 //findtipoemocional
 exports.findByUsuario = async (id_usuario) => {
   const result = await db.query(
-    `SELECT te.idtipoemocional, te.nombre_tipo, te.descripcion
+    `SELECT te.id_emocional, te.descripcion, ru.fecha_resultado, ru.compatibilidad
      FROM resultadousuario ru
-     JOIN tipoemocional te ON ru.idtipoemocional = te.idtipoemocional
-     WHERE ru.id_usuario = $1`,
+     JOIN tipoemocional te ON ru.id_emocional = te.id_emocional
+     WHERE ru.id_usuario = $1
+     ORDER BY ru.fecha_resultado DESC
+     LIMIT 1`,
     [id_usuario]
   );
   return result.rows[0] || null;
