@@ -38,5 +38,4 @@ app.use('/api/mascotas',mascotaImagenRoutes);
 const listEndpoints = require('express-list-endpoints');
 console.log(JSON.stringify(listEndpoints(app), null, 2));
 
-
 module.exports = app;

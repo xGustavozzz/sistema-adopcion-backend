@@ -4,6 +4,7 @@ nurva libreria
 npm install jsonwebtoken bcryptjs
 npm install bcrypt
 npm install multer
+npm install express-list-endpoints
 
 asegurense de tener en el .env
 JWT_SECRET = ultramega_hardcore_hiper_transversal_dinamica_clave_secreta
