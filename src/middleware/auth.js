@@ -11,7 +11,7 @@ function authenticateToken(req, res, next) {
     console.log('Decoded JWT payload:', verified);
     next();
   } catch (error) {
-    res.status(400).json({ message: 'Invalid token.' });
+    res.status(401).json({ message: 'Invalid token.' });
   }
 }
 
