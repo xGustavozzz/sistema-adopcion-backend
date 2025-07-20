@@ -1,4 +1,15 @@
 const service = require('../services/resultadousuario.service');
+const ResultadoService = require('../services/resultadousuario.service');
+
+exports.obtenerMiTipoEmocional = async (req, res) => {
+    try {
+        const id_usuario = req.user.id;
+        const data = await service.obtenerMiTipoEmocional(id_usuario);
+        res.json(data);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
 
 exports.getAll = async (req, res) => {
     try {

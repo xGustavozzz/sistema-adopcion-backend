@@ -29,6 +29,18 @@ exports.insert = async ({ id_usuario, id_emocional, fecha_resultado }) => {
     return result.rows[0];
 };
 
+//findtipoemocional
+exports.findByUsuario = async (id_usuario) => {
+  const result = await db.query(
+    `SELECT te.idtipoemocional, te.nombre_tipo, te.descripcion
+     FROM resultadousuario ru
+     JOIN tipoemocional te ON ru.idtipoemocional = te.idtipoemocional
+     WHERE ru.id_usuario = $1`,
+    [id_usuario]
+  );
+  return result.rows[0] || null;
+};
+
 // Actualizar resultado por ID
 exports.update = async (id, fields) => {
     const keys = Object.keys(fields);
