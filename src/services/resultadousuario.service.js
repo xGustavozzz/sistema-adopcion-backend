@@ -1,5 +1,4 @@
 const model = require('../models/resultadousuario.models');
-const ResultadoModel = require('../models/resultadousuario.model');
 
 exports.obtenerResultadoDeUsuario = async (id_usuario) => {
   const resultado = await ResultadoModel.findByUsuario(id_usuario);
