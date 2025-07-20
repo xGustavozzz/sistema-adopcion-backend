@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/pregunta.controller');
 const authenticateToken = require('../middleware/auth');
+const authorize = require('../middleware/authorize');
 
 router.use(authenticateToken,authorize('admin'));
 router.get('/', controller.getAll);
