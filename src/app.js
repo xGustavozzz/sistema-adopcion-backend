@@ -16,6 +16,7 @@ const mascotaImagenRoutes = require('./routes/mascotaImagen.route');
 
 const respondedorCuestionarioRoutes = require('./routes/respondedorCuestionario.route');
 
+const listEndpoints = require('express-list-endpoints');
 
 const app = express();
 app.use(cors());
@@ -33,5 +34,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 
 app.use('/api/mascotas',mascotaImagenRoutes);
+
+const listEndpoints = require('express-list-endpoints');
+console.log(JSON.stringify(listEndpoints(app), null, 2));
+
 
 module.exports = app;
