@@ -14,14 +14,14 @@ exports.findById = async (id) => {
 
 //inserta un nuevo mascota
 exports.insert = async (mascota) => {
-    const {nombre, especie, tamano, edad, sexo, descripcion, estado_adopcion, lugar_actual} = mascota;
+    const {nombre, especie, tamano, edad, sexo, descripcion, estado_adopcion, lugar_actual, compatibilidad, requerimientos, perfil_emocional} = mascota;
     const result = await db.query(
         `INSERT INTO mascota 
-        (nombre, especie, tamano, edad, sexo, descripcion, estado_adopcion, lugar_actual)
+        (nombre, especie, tamano, edad, sexo, descripcion, estado_adopcion, lugar_actual, compatibilidad, requerimientos, perfil_emocional)
         VALUES 
-        ($1, $2, $3, $4, $5, $6, $7, $8)
+        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
         RETURNING *`,
-        [nombre, especie, tamano, edad, sexo, descripcion, estado_adopcion, lugar_actual]
+        [nombre, especie, tamano, edad, sexo, descripcion, estado_adopcion, lugar_actual, compatibilidad, requerimientos, perfil_emocional]
     );
     return result.rows[0];
 };

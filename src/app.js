@@ -31,5 +31,6 @@ app.use('/api/mascotas', mascotaRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 
+app.use('/api/mascotas', require('./routes/mascotaImagen.route'));
 
 module.exports = app;
