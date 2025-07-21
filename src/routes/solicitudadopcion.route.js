@@ -1,10 +1,8 @@
 // routes/solicitudAdopcionRoutes.js
 const express = require('express');
 const router = express.Router();
-// Usando el nombre de archivo exacto que tienes para el controlador
 const solicitudAdopcionController = require('../controllers/solicitudadopcion.controller');
 const authenticateToken = require('../middleware/auth'); // Middleware para verificar el token (autenticación)
-// Usando el nombre de archivo exacto que tienes para el middleware de rol
 const authorizeRole = require('../middleware/authorizerole'); // Nuevo middleware para verificar el rol (autorización)
 
 /**
@@ -32,8 +30,9 @@ router.get('/:id', authenticateToken, solicitudAdopcionController.getSolicitudAd
 // La URL efectiva será PUT /api/solicitudes/:id/status
 router.put('/:id/status', authenticateToken, authorizeRole(['admin']), solicitudAdopcionController.updateSolicitudAdopcionStatus);
 
-// Ruta para eliminar una solicitud de adopción (solo administradores)
+// Ruta para eliminar una solicitud de adopción
+// ¡CAMBIO AQUÍ! Se elimina el middleware authorizeRole(['admin']) para permitir que el controlador maneje la autorización.
 // La URL efectiva será DELETE /api/solicitudes/:id
-router.delete('/:id', authenticateToken, authorizeRole(['admin']), solicitudAdopcionController.deleteSolicitudAdopcion);
+router.delete('/:id', authenticateToken, solicitudAdopcionController.deleteSolicitudAdopcion);
 
 module.exports = router;

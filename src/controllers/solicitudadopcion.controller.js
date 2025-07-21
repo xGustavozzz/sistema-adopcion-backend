@@ -1,8 +1,4 @@
 // controllers/solicitudAdopcionController.js
-// CAMBIA ESTA LÍNEA:
-// const solicitudAdopcionService = require('../services/solicitudAdopcionService');
-
-// POR ESTA LÍNEA, para que coincida con tu nombre de archivo:
 const solicitudAdopcionService = require('../services/solicitudadopcion.service'); // Importa el servicio
 
 /**
@@ -158,19 +154,34 @@ exports.updateSolicitudAdopcionStatus = async (req, res) => {
 exports.deleteSolicitudAdopcion = async (req, res) => {
     try {
         const id_solicitud = parseInt(req.params.id, 10);
+        const id_usuario_autenticado = req.user.id; // ID del usuario que está haciendo la petición
+        const user_role = req.user.rol; // Rol del usuario que está haciendo la petición
 
-        // Validar que el ID sea un número válido
+        // Validar que el ID de la solicitud sea un número válido
         if (isNaN(id_solicitud)) {
             return res.status(400).json({ error: 'El ID de la solicitud debe ser un número válido.' });
         }
 
-        const isDeleted = await solicitudAdopcionService.deleteSolicitudAdopcion(id_solicitud);
+        // Obtener la solicitud para verificar la propiedad
+        const solicitud = await solicitudAdopcionService.getSolicitudAdopcionById(id_solicitud);
 
-        if (!isDeleted) {
+        if (!solicitud) {
             return res.status(404).json({ message: 'Solicitud de adopción no encontrada para eliminar.' });
         }
 
-        res.status(204).send(); // 204 No Content para eliminación exitosa sin cuerpo de respuesta
+        // Verificar si el usuario es administrador o el propietario de la solicitud
+        if (user_role === 'admin' || solicitud.id_usuario === id_usuario_autenticado) {
+            const isDeleted = await solicitudAdopcionService.deleteSolicitudAdopcion(id_solicitud);
+
+            if (!isDeleted) {
+                return res.status(404).json({ message: 'Solicitud de adopción no encontrada para eliminar.' });
+            }
+
+            res.status(204).send(); // 204 No Content para eliminación exitosa sin cuerpo de respuesta
+        } else {
+            // El usuario no es administrador ni el propietario de la solicitud
+            return res.status(403).json({ error: 'Acceso denegado. No tienes permisos para eliminar esta solicitud.' });
+        }
     } catch (error) {
         console.error(`Error en el controlador al eliminar solicitud de adopción con ID ${req.params.id}:`, error.message);
         if (error.message.includes('obligatorio') || error.message.includes('número')) {
