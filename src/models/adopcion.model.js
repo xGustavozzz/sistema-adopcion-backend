@@ -21,26 +21,17 @@ exports.getAllAdopciones = async () => {
                 u.nombre AS nombre_adoptante,
                 sa.id_mascota AS id_mascota_adoptada,
                 m.nombre AS nombre_mascota_adoptada,
-                -- Seleccionamos la imagen de mascota_imagen con orden más bajo
-                replace(encode(mi.imagen, 'base64'), E'\\n','') AS imagen_mascota,
                 a.fecha_adopcion,
                 a.observaciones,
                 a.entregado_por,
-                ue.nombre AS nombre_entregado_por,
+                ue.nombre AS nombre_entregado_por, -- Asumiendo que 'entregado_por' es un id_usuario
                 a.fecha_entrega_prevista,
-                sa.estado_solicitud
+                sa.estado_solicitud -- Para referencia, aunque debería ser 'aceptada'
             FROM public.adopcion a
             JOIN public.solicitudadopcion sa ON a.id_solicitud = sa.id_solicitud
-            LEFT JOIN public.usuario u ON sa.id_usuario = u.id_usuario
-            LEFT JOIN public.mascota m ON sa.id_mascota = m.id_mascota
-            -- LEFT JOIN LATERAL para obtener solo una imagen por mascota (la de orden más bajo)
-            LEFT JOIN LATERAL (
-                SELECT imagen
-                FROM public.mascota_imagen
-                WHERE id_mascota = m.id_mascota
-                ORDER BY orden ASC
-                LIMIT 1
-            ) mi ON TRUE
+            LEFT JOIN public.usuario u ON sa.id_usuario = u.id_usuario -- Usuario adoptante
+            LEFT JOIN public.mascota m ON sa.id_mascota = m.id_mascota -- Mascota adoptada
+            LEFT JOIN public.usuario ue ON a.entregado_por = ue.id_usuario -- Usuario que entregó
             ORDER BY a.fecha_adopcion DESC`
         );
         return result.rows;
@@ -66,8 +57,6 @@ exports.getAdopcionById = async (id_adopcion) => {
                 u.nombre AS nombre_adoptante,
                 sa.id_mascota AS id_mascota_adoptada,
                 m.nombre AS nombre_mascota_adoptada,
-                -- Seleccionamos la imagen de mascota_imagen con orden más bajo
-                replace(encode(mi.imagen, 'base64'), E'\\n','') AS imagen_mascota,
                 a.fecha_adopcion,
                 a.observaciones,
                 a.entregado_por,
@@ -78,14 +67,7 @@ exports.getAdopcionById = async (id_adopcion) => {
             JOIN public.solicitudadopcion sa ON a.id_solicitud = sa.id_solicitud
             LEFT JOIN public.usuario u ON sa.id_usuario = u.id_usuario
             LEFT JOIN public.mascota m ON sa.id_mascota = m.id_mascota
-            -- LEFT JOIN LATERAL para obtener solo una imagen por mascota (la de orden más bajo)
-            LEFT JOIN LATERAL (
-                SELECT imagen
-                FROM public.mascota_imagen
-                WHERE id_mascota = m.id_mascota
-                ORDER BY orden ASC
-                LIMIT 1
-            ) mi ON TRUE
+            LEFT JOIN public.usuario ue ON a.entregado_por = ue.id_usuario
             WHERE a.id_adopcion = $1`,
             [id_adopcion]
         );
@@ -112,8 +94,6 @@ exports.getAdopcionesByUserId = async (id_usuario) => {
                 u.nombre AS nombre_adoptante,
                 sa.id_mascota AS id_mascota_adoptada,
                 m.nombre AS nombre_mascota_adoptada,
-                -- Seleccionamos la imagen de mascota_imagen con orden más bajo
-                replace(encode(mi.imagen, 'base64'), E'\\n','') AS imagen_mascota,
                 a.fecha_adopcion,
                 a.observaciones,
                 a.entregado_por,
@@ -124,14 +104,7 @@ exports.getAdopcionesByUserId = async (id_usuario) => {
             JOIN public.solicitudadopcion sa ON a.id_solicitud = sa.id_solicitud
             LEFT JOIN public.usuario u ON sa.id_usuario = u.id_usuario
             LEFT JOIN public.mascota m ON sa.id_mascota = m.id_mascota
-            -- LEFT JOIN LATERAL para obtener solo una imagen por mascota (la de orden más bajo)
-            LEFT JOIN LATERAL (
-                SELECT imagen
-                FROM public.mascota_imagen
-                WHERE id_mascota = m.id_mascota
-                ORDER BY orden ASC
-                LIMIT 1
-            ) mi ON TRUE
+            LEFT JOIN public.usuario ue ON a.entregado_por = ue.id_usuario
             WHERE sa.id_usuario = $1
             ORDER BY a.fecha_adopcion DESC`,
             [id_usuario]
