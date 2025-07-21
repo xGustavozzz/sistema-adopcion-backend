@@ -15,6 +15,8 @@ const authenticate  = require('./middleware/auth');
 const mascotaImagenRoutes = require('./routes/mascotaImagen.route');
 
 const respondedorCuestionarioRoutes = require('./routes/respondedorCuestionario.route');
+const solicitudAdopcionRoutes = require('./routes/solicitudadopcion.route'); // Importa las rutas de solicitud de adopción
+const adopcionRoutes = require('./routes/adopcion.route'); // Nueva línea: Importa las rutas de adopción
 
 const listEndpoints = require('express-list-endpoints');
 
@@ -35,5 +37,7 @@ app.use('/api/users', userRoutes);
 
 app.use('/api/mascotas',mascotaImagenRoutes);
 
+app.use('/api/solicitudes', solicitudAdopcionRoutes); // Usa las rutas de solicitud de adopción
+app.use('/api/adopciones', adopcionRoutes); // Nueva línea: Usa las rutas de adopción
 
 module.exports = app;
