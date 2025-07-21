@@ -14,9 +14,12 @@ exports.findAll = async () => {
       m.estado_adopcion,
       m.lugar_actual,
       m.requerimientos,
-      m.perfil_emocional,
+      m.id_emocional,
+      te.descripcion AS perfil_emocional,
       replace(encode(mi.imagen, 'base64'), E'\\n','') AS imagen
     FROM mascota m
+    LEFT JOIN tipoemocional te
+      ON te.id_emocional = m.id_emocional
     LEFT JOIN mascota_imagen mi
       ON mi.id_mascota = m.id_mascota AND mi.orden = 1
     ORDER BY m.id_mascota;`
@@ -32,14 +35,14 @@ exports.findById = async (id) => {
 
 //inserta un nuevo mascota
 exports.insert = async (mascota) => {
-    const {nombre, especie, tamano, edad, sexo, descripcion, estado_adopcion, lugar_actual, requerimientos, perfil_emocional} = mascota;
+    const {nombre, especie, tamano, edad, sexo, descripcion, estado_adopcion, lugar_actual, requerimientos, id_emocional} = mascota;
     const result = await db.query(
         `INSERT INTO mascota 
-        (nombre, especie, tamano, edad, sexo, descripcion, estado_adopcion, lugar_actual, requerimientos, perfil_emocional)
+        (nombre, especie, tamano, edad, sexo, descripcion, estado_adopcion, lugar_actual, requerimientos, id_emocional)
         VALUES 
         ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
         RETURNING *`,
-        [nombre, especie, tamano, edad, sexo, descripcion, estado_adopcion, lugar_actual, requerimientos, perfil_emocional]
+        [nombre, especie, tamano, edad, sexo, descripcion, estado_adopcion, lugar_actual, requerimientos, id_emocional]
     );
     return result.rows[0];
 };
