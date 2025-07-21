@@ -41,3 +41,24 @@ exports.remove = async (req, res) => {
   // Las imágenes asociadas se eliminan automáticamente en la base de datos
   res.status(204).send();
 };
+
+exports.removeImage = async (req, res) => {
+  try {
+    const id_mascota = parseInt(req.params.id, 10);
+    const imagenId  = parseInt(req.params.imagenId, 10);
+
+    // 1) Borrar la imagen
+    const deleted = await imgModel.removeById(imagenId);
+    if (!deleted) {
+      return res.status(404).json({ message: 'Imagen no encontrada' });
+    }
+
+    // 2) Reordenar las que quedan
+    await imgModel.reorder(id_mascota);
+
+    // 3) Responder
+    res.status(204).send();
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
