@@ -27,11 +27,34 @@ exports.findAll = async () => {
     return result.rows;
 };
 
-//devuelve un mascota por su id
+// Devuelve una mascota por su id incluyendo su tipo emocional y primera imagen
 exports.findById = async (id) => {
-    const result = await db.query('SELECT * FROM mascota WHERE id_mascota = $1', [id]);
-    return result.rows[0];
+  const result = await db.query(
+    `SELECT 
+      m.id_mascota,
+      m.nombre,
+      m.especie,
+      m.tamano,
+      m.edad,
+      m.sexo,
+      m.descripcion,
+      m.estado_adopcion,
+      m.lugar_actual,
+      m.requerimientos,
+      m.id_emocional,
+      te.descripcion AS perfil_emocional,
+      replace(encode(mi.imagen, 'base64'), E'\\n','') AS imagen
+    FROM mascota m
+    LEFT JOIN tipoemocional te
+      ON te.id_emocional = m.id_emocional
+    LEFT JOIN mascota_imagen mi
+      ON mi.id_mascota = m.id_mascota AND mi.orden = 1
+    WHERE m.id_mascota = $1`,
+    [id]
+  );
+  return result.rows[0];
 };
+
 
 //inserta un nuevo mascota
 exports.insert = async (mascota) => {
