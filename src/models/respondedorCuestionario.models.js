@@ -20,6 +20,15 @@ exports.insertarResultado = async (id_usuario, id_emocional, compatibilidad) => 
     return result.rows[0];
 };
 
+exports.guardarRespuestasUsuario = async (respuestas, id_usuario) => {
+  for (const { id_opcion, id_pregunta } of respuestas) {
+    await db.query(
+      `INSERT INTO respuestasusuario (id_usuario, id_pregunta, id_opcion) VALUES ($1, $2, $3)`,
+      [id_usuario, id_pregunta, id_opcion]
+    );
+  }
+}
+
 /*
 exports.eliminarResultadoPorUsuario = async (id_usuario) => {
     await db.query(

@@ -18,6 +18,8 @@ exports.procesarRespuestas = async (respuestas, id_usuario) => {
         contador[id_emocional] = (contador[id_emocional] || 0) + 1;
     }
 
+    await model.guardarRespuestasUsuario(respuestas, id_usuario); // guardar en respuestasusuario
+    
     const id_emocional_dominante = Object.entries(contador)
         .sort((a, b) => b[1] - a[1])[0][0];
 
