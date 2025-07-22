@@ -7,6 +7,7 @@ const authorize = require('../middleware/authorize');
 router.use(authenticateToken);
 // ⚠️ Primero las rutas estáticas como /mio
 router.get('/mio', controller.obtenerMiTipoEmocional);
+router.get('/historialemocional', controller.obtenerHistorialEmocional);
 
 router.use(authorize('admin'));
 router.get('/', controller.getAll);
