@@ -52,30 +52,30 @@ src/
 ├── config/
 │   └── db.js
 │   └── dotenv.js
-|
+│
 ├── controllers/
 │   ├── usuarioController.js
 │   ├── mascotaController.js
 │   ├── cuestionarioController.js
 │   └── adopcionController.js
 │   ...
-|
+│
 ├── middleware/
 |   └── auth.js
 │   └── authMiddleware.js
 │   └──authorizerole.js
-|
+│
 ├── routes/
 │   ├── usuarioRoutes.js
 │   ├── mascotaRoutes.js
 │   ├── cuestionarioRoutes.js
 │   └── adopcionRoutes.js
-│    ...
-|
+│   ...
+│
 ├── services/
 │   └── cuestionarioService.js
 |   ...
-|
+│
 ├── app.js
 
 ```
