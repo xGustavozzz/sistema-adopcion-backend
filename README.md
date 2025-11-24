@@ -47,31 +47,67 @@ npm install
 ```
 ## 4. Estructura del proyecto
 ```bash
-src/
-│
-├── config/
-│   └── db.js
-│   └── dotenv.js
-├── controllers/
-│   ├── usuarioController.js
-│   ├── mascotaController.js
-│   ├── cuestionarioController.js
-│   └── adopcionController.js
-│   ...
-├── middleware/
-|   └── auth.js
-│   └── authMiddleware.js
-│   └──authorizerole.js
-├── routes/
-│   ├── usuarioRoutes.js
-│   ├── mascotaRoutes.js
-│   ├── cuestionarioRoutes.js
-│   └── adopcionRoutes.js
-│   ...
-├── services/
-│   └── cuestionarioService.js
-|   ...
-├── app.js
+├── src/
+│   ├── config/
+│   │   ├── db.js
+│   │   └── dotenv.js
+│   ├── controllers/            # Lógica principal del proyecto (Maneja las peticiones de las rutas)
+│   │   ├── adopcion.controller.js
+│   │   ├── auth.controller.js
+│   │   ├── cuestionario.controller.js
+│   │   ├── mascota.controller.js
+│   │   ├── mascotaImagen.controller.js
+│   │   ├── opcionrespuesta.controller.js
+│   │   ├── pregunta.controller.js
+│   │   ├── respondedorCuestionario.controller.js
+│   │   ├── resultadousuario.controller.js
+│   │   ├── solicitudadopcion.controller.js
+│   │   ├── tipoemocional.controller.js
+│   │   └── user.controller.js
+│   ├── middleware/
+│   │   ├── auth.js
+│   │   ├── authorize.js
+│   │   └── authorizerole.js
+│   ├── models/                 # Definición de los modelos de datos
+│   │   ├── adopcion.model.js
+│   │   ├── auth.model.js
+│   │   ├── cuestionario.model.js
+│   │   ├── mascota.model.js
+│   │   ├── mascotaImagen.model.js
+│   │   ├── opcionrespuesta.model.js
+│   │   ├── pregunta.model.js
+│   │   ├── respondedorCuestionario.model.js
+│   │   ├── resultadousuario.model.js
+│   │   ├── solicitudadopcion.model.js
+│   │   ├── tipoemocional.model.js
+│   │   └── user.model.js
+│   ├── routes/                 # Definición de los endpoints de la API
+│   │   ├── adopcion.route.js
+│   │   ├── auth.route.js
+│   │   ├── cuestionario.route.js
+│   │   ├── mascota.route.js
+│   │   ├── mascotaImagen.route.js
+│   │   ├── opcionrespuesta.route.js
+│   │   ├── pregunta.route.js
+│   │   ├── respondedorCuestionario.route.js
+│   │   ├── resultadousuario.route.js
+│   │   ├── solicitudadopcion.route.js
+│   │   ├── tipoemocional.route.js
+│   │   └── user.route.js
+│   ├── services/               # Lógica modular e interacción con la base de datos
+│   │   ├── Adopcion.service.js
+│   │   ├── auth.service.js
+│   │   ├── cuestionario.service.js
+│   │   ├── mascota.service.js
+│   │   ├── opcionrespuesta.service.js
+│   │   ├── pregunta.service.js
+│   │   ├── respondedorCuestionario.service.js
+│   │   ├── resultadousuario.service.js
+│   │   ├── solicitudadopcion.service.js
+│   │   ├── tipoemocional.service.js
+│   │   └── user.service.js
+│   ├── Adopcion.tar
+│   └── app.js
 
 ```
 
